@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% if user.is_authenticated %}
+<form action='' method='POST' enctype='multipart/form-data'>{% csrf_token %}
+    <p>タイトル:<input type='text' name='title'></p>
+    <p>内容:<input type='text' name='content'></p>
+    <p>評価</p>
+
+    <select name='evaluations'>
+        <option value='良い'>Good</option>
+        <option value='悪い'>Bad</option>
+    </select>
+
+    <input type='hidden' name='author' value='{{ user.id }}'>
+    <input type='submit' value='作成する'>
+</form>
+{% else %}
+ログインしてください。
+<a href="{% url 'login' %}" class='btn btn-primary' role='button' aria-pressed="true">ログイン</a>
+{% endif %}
+{% endblock content %}

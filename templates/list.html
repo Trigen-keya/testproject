@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block header %}
+{% endblock header %}
+{% block content %}
+
+<div class="container">
+    <a href="{% url 'logout' %}" >ログアウトする</a>
+    <a href="{% url 'create' %}" >作成する</a>
+    {% for item in object_list %}
+    <div class="card">
+          <h3 class="card-header" color='blue'>{{ item.title }}</h3>
+          <h3 class="card-title">投稿者:{{ item.author }}</h3>
+          <p class="card-text">{{ item.content }}</p>
+          <h3 class="card-title">いいねの数{{ item.useful_review }}</h3>
+          <a href="{% url 'detail' item.pk %}" >詳細を見る</a>
+    </div>
+    <div class="col-auto d-none d-lg-block">
+        <svg class="bd-placeholder-img" width="200" height="250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder:お試し中" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+    </div>
+    {% endfor %}
+</div>
+{% endblock content %}

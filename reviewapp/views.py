@@ -28,23 +28,21 @@ def loginview(request):
     if request.method=='POST':
         username_data=request.POST.get('username_data')
         password_data=request.POST.get('password_data')
-        user = authenticate(request,username='username_data', password='password_data')
+        user = authenticate(username=username_data, password=password_data)
+        print(user)
         if user:
-            if user.is_active:
-                login(request,user)
-                return HttpResponseRedirect(reverse('list'))
-            else:
-                return HttpResponse("アカウントが有効じゃない!!")
+            login(request,user)
+            return HttpResponseRedirect(reverse('list'))
         else:
-            return HttpResponse("アカウント登録間違ってるよー")
+            return HttpResponse("アカウント作ってないでしょ!!")
     else:
         return render(request,'login.html')
 
-# @login_required
+@login_required
 def listview(request):
     object_list=ReviewModel.objects.all()
     return render(request,'list.html',{'object_list':object_list})
-# @login_required
+@login_required
 def detailview(request,pk):
     object=ReviewModel.objects.get(pk=pk)
     return render(request, 'detail.html', {'object':object})

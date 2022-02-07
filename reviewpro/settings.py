@@ -1,6 +1,7 @@
 import os
 from pathlib import Path
 
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -9,12 +10,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-8y9+h8sck_qnldt$b+)m)o%-hx&o%8k4$ejj0t)xt5ng(1!wx^'
+SECRET_KEY = 'trigen_soft'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
-
-ALLOWED_HOSTS = ['kenya.pythonanywhere.com']
+DEBUG = True
+if not DEBUG:
+    ALLOWED_HOSTS = ''
+    STATIC_ROOT = '/usr/share/nginx/html/static'
+    MEDIA_ROOT = '/usr/share/nginx/html/media'
 
 
 # Application definition
@@ -113,4 +116,6 @@ MEDIA_URL='/mediamedia/'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-LOGIN_URL='/login/'
+LOGIN_URL='/login'
+LOGIN_REDIRECT_URL='/list'
+LOGOUT_REDIRECT＿URL='/login'

@@ -7,8 +7,9 @@ from .models import ReviewModel
 from django.urls import reverse_lazy, reverse
 from django.views.generic import CreateView 
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.views import LogoutView
+from django.contrib.auth.views import LogoutView, PasswordChangeView
 from django.http import HttpResponseRedirect, HttpResponse
+from django.core.mail import send_mail
 
 
 def signupview(request):
@@ -55,3 +56,28 @@ class creatclass(CreateView):
 
 class logoutview(LogoutView):
     template_name='logout.html'
+    
+def evaluationview(request, pk):
+    post=ReviewModel.objects.get(pk=pk)
+    author_name=request.user.get_username()+str(request.user.id)
+    if author_name in post.useful_review_record:
+        return redirect('list')
+    else:
+        post.useful_review=post.useful_review+1
+        post.useful_review_record=post.useful_review+author_name
+        post.save()
+        return redirect('list')
+
+class passwordview(PasswordChangeView):
+    template_name='changepassword.html'
+    success_url=reverse_lazy('login')
+
+def emailfunc(request):
+    send_mail(
+        'タイトル',
+        '本文',
+        '送信元のメールアドレス',
+        ['送信先のメールアドレス'],
+        fail_silently=False,
+    )
+    return HttpResponse('')

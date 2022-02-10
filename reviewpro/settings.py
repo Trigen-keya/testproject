@@ -15,7 +15,7 @@ SECRET_KEY = 'trigen_soft'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 if not DEBUG:
-    ALLOWED_HOSTS = ''
+    ALLOWED_HOSTS = 'kenya.pythonanywhere.com'
     STATIC_ROOT = '/usr/share/nginx/html/static'
     MEDIA_ROOT = '/usr/share/nginx/html/media'
 

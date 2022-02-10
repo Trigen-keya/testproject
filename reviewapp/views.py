@@ -47,7 +47,7 @@ def listview(request):
 def detailview(request,pk):
     object=ReviewModel.objects.get(pk=pk)
     return render(request, 'detail.html', {'object':object})
-
+@login_required
 class creatclass(CreateView):
     template_name='create.html'
     model=ReviewModel
